@@ -41,6 +41,7 @@ class CXR_BERT_Encoder(nn.Module):
             truncation=True,
             max_length=self.max_length
         )
+        tokens = {k: v.to(self.cxrbert.device) for k, v in tokens.items()}
         outputs = self.cxrbert(**tokens)  
         text_features = outputs.last_hidden_state
         return text_features

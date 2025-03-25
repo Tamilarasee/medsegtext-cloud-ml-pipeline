@@ -19,10 +19,10 @@ def train(model, train_loader, val_loader, criterion, optimizer, epochs=10):
         model.train()
         train_loss = 0
         dice, iou = 0, 0
-        for batch_idx, (images, masks) in enumerate(train_loader):
+        for batch_idx, (images, masks, texts) in enumerate(train_loader):
             images, masks = images.to(device), masks.to(device)
             optimizer.zero_grad()
-            preds = model(images)
+            preds = model(images, texts)
             loss = criterion(preds, masks)
             loss.backward()
             optimizer.step()
@@ -31,16 +31,16 @@ def train(model, train_loader, val_loader, criterion, optimizer, epochs=10):
             dice += dice_score(preds, masks).item()
             iou += iou_score(preds, masks).item()
             
-            # Print current batch number
-            if batch_idx % 10 == 0:  # Print every 10 batches for clarity
+            # # Print current batch number
+            if batch_idx % 500 == 0:  # Print every 35 batches for clarity
                 print(f"Epoch [{epoch+1}/{epochs}], Batch [{batch_idx+1}/{len(train_loader)}] - Loss: {loss.item():.4f}")
         
         val_loss = 0
         model.eval()
         with torch.no_grad():
-            for images, masks in val_loader:
+            for images, masks, texts in val_loader:
                 images, masks = images.to(device), masks.to(device)
-                preds = model(images)
+                preds = model(images, texts)
                 loss = criterion(preds, masks)
                 val_loss += loss.item()
         

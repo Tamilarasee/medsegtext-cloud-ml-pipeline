@@ -53,9 +53,10 @@ def copy_files(text_ann, image_set, data_path, folder):
 
 class SegmentationDataset(Dataset):
     def __init__(self, data_path, folder, transform=None, target_size=(224, 224)):
-
         self.img_folder = os.path.join(data_path, folder, "frames")
         self.mask_folder = os.path.join(data_path, folder, "masks")
+        # Add text annotations
+        self.text_ann = pd.read_excel(os.path.join(data_path, folder, 'text_annotations.xlsx'))
         self.image_names = os.listdir(self.img_folder)
         self.target_size = target_size
         self.transform = transform
@@ -67,6 +68,9 @@ class SegmentationDataset(Dataset):
         img_name = self.image_names[idx]
         img_path = os.path.join(self.img_folder, img_name)
         mask_path = os.path.join(self.mask_folder, img_name)
+        
+        # Get corresponding text
+        text_description = self.text_ann[self.text_ann['Image'] == img_name]['text'].values[0]
 
         # Load image and mask
         image = cv2.imread(img_path)
@@ -84,9 +88,9 @@ class SegmentationDataset(Dataset):
         
         mask = np.where(mask==255,1,0).astype(np.uint8) # Ensure mask is binary
         image = image.to(torch.float32) / 255.0 # Convert image to float32 and normalize
-        mask = torch.from_numpy(mask).unsqueeze(0).to(torch.long)  # Add channel dimension and convert to long
+        mask = torch.from_numpy(mask).unsqueeze(0).to(torch.float32)  # Add channel dimension and convert to long
 
         #print(f"Mask shape after conversion: {mask.shape}, dtype: {mask.dtype}, type: {type(mask)}")
 
         
-        return image, mask
+        return image, mask, text_description
