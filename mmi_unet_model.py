@@ -47,12 +47,12 @@ class CXR_BERT_Encoder(nn.Module):
 
 
 class ITM(nn.Module):
-    def __init__(self, visual_channels, text_channels, num_heads=8):
+    def __init__(self,visual_channels, text_channels,num_heads=8):
         super().__init__()
-        self.conv_image = nn.Conv2d(visual_channels, visual_channels, kernel_size=2, stride=2)
+        self.conv_image = nn.Conv2d(visual_channels,visual_channels, kernel_size=2, stride=2)
         self.linear_text = nn.Linear(text_channels, visual_channels)
         self.mhsa = nn.MultiheadAttention(embed_dim=visual_channels, num_heads=num_heads, batch_first=True)
-        self.layer_norm = nn.LayerNorm([visual_channels])  # Specify correct normalization shape
+        self.layer_norm = nn.LayerNorm(visual_channels)
         self.mhca = nn.MultiheadAttention(embed_dim=visual_channels, num_heads=num_heads, batch_first=True)        
         self.conv_transpose = nn.ConvTranspose2d(visual_channels, visual_channels, kernel_size=2, stride=2)
         self.ffn = nn.Sequential(
@@ -69,19 +69,12 @@ class ITM(nn.Module):
         
         # Reshape for LayerNorm (BCHW → BNC)
         batch, channels, height, width = visual_reduction_fc.shape
-        visual_reduction_fc = visual_reduction_fc.permute(0, 2, 3, 1)  # [B, H, W, C]
-        visual_reduction_fc = visual_reduction_fc.reshape(batch * height * width, channels)  # [B*H*W, C]
-        visual_reduction_fc = self.layer_norm(visual_reduction_fc)  # Apply LayerNorm
-        visual_reduction_fc = visual_reduction_fc.reshape(batch, height * width, channels)  # [B, H*W, C]
-
-        # Apply self-attention
-        visual_fc_mhsa, _ = self.mhsa(visual_reduction_fc, visual_reduction_fc, visual_reduction_fc)
+        visual_reduction_fc = visual_reduction_fc.reshape(batch, channels, -1).permute(0, 2, 1)  # [B, H*W, C]
+        visual_reduction_fc = self.layer_norm(visual_reduction_fc)
         
-        # Apply LayerNorm to residual connection
-        visual_f_sa = visual_fc_mhsa + visual_reduction_fc
-        visual_f_sa = visual_f_sa.reshape(batch * height * width, channels)
-        visual_f_sa = self.layer_norm(visual_f_sa)
-        visual_f_sa = visual_f_sa.reshape(batch, height * width, channels)
+        # Apply self-attention (already in correct shape [B, H*W, C])
+        visual_fc_mhsa, _ = self.mhsa(visual_reduction_fc, visual_reduction_fc, visual_reduction_fc)
+        visual_f_sa = self.layer_norm(visual_fc_mhsa + visual_reduction_fc)
 
         # MHSA Text (no reshaping needed - already in BNC format)
         text_reduction_t = self.linear_text(text_features)  
@@ -178,12 +171,12 @@ class MMI_UNet(nn.Module):
        
         # Decoder (Upsampling Path)
         self.decoder = nn.ModuleList() 
-                
-        for feature in reversed(features):
-            self.decoder.append(Decoder(feature, feature//2))
+        features = features[::-1]
+        for index in range(len(features)-1):
+            self.decoder.append(Decoder(features[index], features[index+1]))
         
         # Final output layer
-        self.final_conv = nn.Conv2d(features[0], out_channels, kernel_size=1)
+        self.final_conv = nn.Conv2d(features[-1], out_channels, kernel_size=1)
 
     
     def forward(self, x, text_inputs):
@@ -218,7 +211,7 @@ class MMI_UNet(nn.Module):
             decoder_output = self.decoder[i](decoder_output, skip_connections[i])
 
         # Segmentation Head
-         # Upsample to the input size (224x224)
+        # Upsample to the input size (224x224)
         decoder_output_up = F.interpolate(decoder_output, size=(224, 224), mode='bilinear', align_corners=False)
 
         # Final output layer (Segmentation Head) with sigmoid
