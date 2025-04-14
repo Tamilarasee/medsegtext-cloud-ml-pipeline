@@ -212,7 +212,7 @@ class MMI_UNet(nn.Module):
             decoder_output = self.decoder[i](decoder_output, skip_connections[i])
 
         # Segmentation Head
-        # Upsample to the input size (224x224)
+         # Upsample to the input size (224x224)
         decoder_output_up = F.interpolate(decoder_output, size=(224, 224), mode='bilinear', align_corners=False)
 
         # Final output layer (Segmentation Head) with sigmoid
