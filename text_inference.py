@@ -8,7 +8,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import nltk
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
+from nltk.translate.meteor_score import meteor_score # MOD: Import METEOR
+from rouge_score import rouge_scorer # MOD: Import ROUGE scorer
 import time
+import warnings # To suppress potential warnings
 
 
 @torch.no_grad() # Ensure no gradients are computed during inference
@@ -95,7 +98,7 @@ def generate_finding(model, tokenizer, image_tensor, device, max_length=50):
 # --- MOD: New Evaluation Function ---
 def evaluate_model(model_path, model_config, test_loader, tokenizer, device, display_limit=5):
     """
-    Loads a trained model, evaluates it on the test set, calculates BLEU scores,
+    Loads a trained model, evaluates it on the test set, calculates BLEU, METEOR, ROUGE scores,
     and displays results for a limited number of samples.
 
     Args:
@@ -108,11 +111,14 @@ def evaluate_model(model_path, model_config, test_loader, tokenizer, device, dis
         display_limit (int): How many samples to display image/text for.
 
     Returns:
-        dict: A dictionary containing the calculated average BLEU scores.
+        dict: A dictionary containing the calculated metrics.
               Returns None if evaluation fails.
     """
 
     print("--- Starting Evaluation ---")
+    # Suppress warnings during evaluation (e.g., from rouge_score)
+    warnings.filterwarnings("ignore")
+
     pad_id = model_config['pad_token_id']
     max_text_len = model_config['max_text_seq_len'] # Get max length from config
 
@@ -127,6 +133,7 @@ def evaluate_model(model_path, model_config, test_loader, tokenizer, device, dis
         model_inf.eval()
     except Exception as e:
         print(f"Error loading model: {e}")
+        warnings.filterwarnings("default") # Restore warnings
         return None
 
     # --- Download NLTK data if needed ---
@@ -137,8 +144,12 @@ def evaluate_model(model_path, model_config, test_loader, tokenizer, device, dis
         nltk.download('punkt', quiet=True)
 
     # --- Evaluation Loop ---
-    predictions_for_bleu = []
-    references_for_bleu = []
+    # MOD: Lists to store texts for different metrics
+    predictions_tokenized = []
+    references_tokenized = [] # List of lists [[ref1_toks], [ref2_toks], ...]
+    predictions_raw = []
+    references_raw = []
+
     samples_processed = 0
     samples_displayed = 0
     eval_start_time = time.time()
@@ -159,6 +170,8 @@ def evaluate_model(model_path, model_config, test_loader, tokenizer, device, dis
                         ground_truth_ids = ground_truth_ids[:first_pad_index]
                     ground_truth_text = tokenizer.decode(ground_truth_ids, skip_special_tokens=True)
                     reference_tokens = nltk.word_tokenize(ground_truth_text.lower())
+                    references_raw.append(ground_truth_text) # Store raw for ROUGE
+                    references_tokenized.append([reference_tokens]) # Store tokenized list (in list) for BLEU/METEOR
                 except Exception as decode_e:
                     print(f"Warning: Error decoding GT for sample {samples_processed + 1}: {decode_e}")
                     samples_processed += 1
@@ -174,14 +187,14 @@ def evaluate_model(model_path, model_config, test_loader, tokenizer, device, dis
                         device=device, max_length=max_text_len
                     )
                     predicted_tokens = nltk.word_tokenize(generated_finding.lower())
+                    predictions_raw.append(generated_finding) # Store raw for ROUGE
+                    predictions_tokenized.append(predicted_tokens) # Store tokenized for BLEU/METEOR
                 except Exception as gen_e:
                     print(f"Warning: Error generating for sample {samples_processed + 1}: {gen_e}")
+                    # Remove corresponding reference if prediction failed
+                    references_raw.pop(); references_tokenized.pop()
                     samples_processed += 1
                     continue # Skip sample
-
-                # Store for metrics
-                references_for_bleu.append([reference_tokens])
-                predictions_for_bleu.append(predicted_tokens)
 
                 # Display if limit not reached
                 if samples_displayed < display_limit:
@@ -214,26 +227,45 @@ def evaluate_model(model_path, model_config, test_loader, tokenizer, device, dis
     eval_end_time = time.time()
     print(f"\nFinished evaluation loop ({samples_processed} samples processed) in {eval_end_time - eval_start_time:.2f} seconds.")
 
-    # --- Calculate BLEU Scores ---
-    final_bleu_scores = None
-    if predictions_for_bleu and references_for_bleu and len(predictions_for_bleu) == len(references_for_bleu):
-        num_scored = len(predictions_for_bleu)
-        print(f"\nCalculating Overall BLEU Scores (Based on {num_scored} Samples)...")
+    # --- Calculate Metrics ---
+    results = {}
+    num_valid_samples = len(predictions_tokenized)
+    if num_valid_samples > 0 and num_valid_samples == len(references_tokenized) == len(predictions_raw) == len(references_raw):
+        print(f"\nCalculating Metrics (Based on {num_valid_samples} Valid Samples)...")
+
+        # BLEU
         chencherry = SmoothingFunction()
         bleu_scores = {'BLEU-1': 0.0, 'BLEU-2': 0.0, 'BLEU-3': 0.0, 'BLEU-4': 0.0}
-        for i in range(num_scored):
-            bleu_scores['BLEU-1'] += sentence_bleu(references_for_bleu[i], predictions_for_bleu[i], weights=(1, 0, 0, 0), smoothing_function=chencherry.method1)
-            bleu_scores['BLEU-2'] += sentence_bleu(references_for_bleu[i], predictions_for_bleu[i], weights=(0.5, 0.5, 0, 0), smoothing_function=chencherry.method1)
-            bleu_scores['BLEU-3'] += sentence_bleu(references_for_bleu[i], predictions_for_bleu[i], weights=(0.33, 0.33, 0.33, 0), smoothing_function=chencherry.method1)
-            bleu_scores['BLEU-4'] += sentence_bleu(references_for_bleu[i], predictions_for_bleu[i], weights=(0.25, 0.25, 0.25, 0.25), smoothing_function=chencherry.method1)
+        for i in range(num_valid_samples):
+             bleu_scores['BLEU-1'] += sentence_bleu(references_tokenized[i], predictions_tokenized[i], weights=(1, 0, 0, 0), smoothing_function=chencherry.method1)
+             bleu_scores['BLEU-2'] += sentence_bleu(references_tokenized[i], predictions_tokenized[i], weights=(0.5, 0.5, 0, 0), smoothing_function=chencherry.method1)
+             bleu_scores['BLEU-3'] += sentence_bleu(references_tokenized[i], predictions_tokenized[i], weights=(0.33, 0.33, 0.33, 0), smoothing_function=chencherry.method1)
+             bleu_scores['BLEU-4'] += sentence_bleu(references_tokenized[i], predictions_tokenized[i], weights=(0.25, 0.25, 0.25, 0.25), smoothing_function=chencherry.method1)
+        for k in bleu_scores: results[k] = bleu_scores[k] / num_valid_samples
 
-        final_bleu_scores = {k: v / num_scored for k, v in bleu_scores.items()}
-        print(f"Avg BLEU-1: {final_bleu_scores['BLEU-1']:.4f}")
-        print(f"Avg BLEU-2: {final_bleu_scores['BLEU-2']:.4f}")
-        print(f"Avg BLEU-3: {final_bleu_scores['BLEU-3']:.4f}")
-        print(f"Avg BLEU-4: {final_bleu_scores['BLEU-4']:.4f}")
+        # METEOR
+        total_meteor = 0.0
+        for i in range(num_valid_samples):
+            # meteor_score expects list of reference lists, and a hypothesis list
+            total_meteor += meteor_score(references_tokenized[i], predictions_tokenized[i])
+        results['METEOR'] = total_meteor / num_valid_samples
+
+        # ROUGE-L
+        rouge_l_f1 = 0.0
+        scorer = rouge_scorer.RougeScorer(['rougeL'], use_stemmer=True)
+        for i in range(num_valid_samples):
+            # ROUGE scorer takes raw strings
+            scores = scorer.score(references_raw[i], predictions_raw[i])
+            rouge_l_f1 += scores['rougeL'].fmeasure # F1-score for ROUGE-L
+        results['ROUGE-L'] = rouge_l_f1 / num_valid_samples
+
+        print("Metrics Calculation Complete.")
+        # Print nicely formatted results
+        for metric, score in results.items(): print(f"  {metric}: {score:.4f}")
+
     else:
-        print("Could not calculate BLEU scores.")
+        print("Could not calculate metrics (not enough valid prediction/reference pairs found).")
 
+    warnings.filterwarnings("default") # Restore warnings
     print("--- Evaluation Finished ---")
-    return final_bleu_scores
+    return results

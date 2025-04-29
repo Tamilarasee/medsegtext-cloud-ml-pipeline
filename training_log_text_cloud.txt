@@ -1,0 +1,220 @@
+--- Training Log Start ---
+Starting Text Generation Training Phase...
+DEBUG: input_ids shape: torch.Size([8, 17])
+DEBUG: input_ids min value: 0
+DEBUG: input_ids max value: 30523
+DEBUG: Expected vocab size (num_embeddings): 30524
+DEBUG: target_ids min value: 0
+DEBUG: target_ids max value: 30523
+Epoch [1/30], Batch [100/273] - Train Loss: 0.3155
+Epoch [1/30], Batch [200/273] - Train Loss: 0.3167
+--- Running Validation for Epoch 1 ---
+Epoch 1/30 Completed:
+  Avg Train Loss: 1.4487
+  Avg Val Loss:   0.2432
+------------------------------
+Epoch [2/30], Batch [100/273] - Train Loss: 0.2135
+Epoch [2/30], Batch [200/273] - Train Loss: 0.2557
+--- Running Validation for Epoch 2 ---
+Epoch 2/30 Completed:
+  Avg Train Loss: 0.2373
+  Avg Val Loss:   0.2183
+------------------------------
+Epoch [3/30], Batch [100/273] - Train Loss: 0.1181
+Epoch [3/30], Batch [200/273] - Train Loss: 0.1974
+--- Running Validation for Epoch 3 ---
+Epoch 3/30 Completed:
+  Avg Train Loss: 0.2218
+  Avg Val Loss:   0.2130
+------------------------------
+Epoch [4/30], Batch [100/273] - Train Loss: 0.1827
+Epoch [4/30], Batch [200/273] - Train Loss: 0.2274
+--- Running Validation for Epoch 4 ---
+Epoch 4/30 Completed:
+  Avg Train Loss: 0.2155
+  Avg Val Loss:   0.1962
+------------------------------
+Epoch [5/30], Batch [100/273] - Train Loss: 0.2181
+Epoch [5/30], Batch [200/273] - Train Loss: 0.1623
+--- Running Validation for Epoch 5 ---
+Epoch 5/30 Completed:
+  Avg Train Loss: 0.1927
+  Avg Val Loss:   0.1748
+------------------------------
+Epoch [6/30], Batch [100/273] - Train Loss: 0.1952
+Epoch [6/30], Batch [200/273] - Train Loss: 0.1373
+--- Running Validation for Epoch 6 ---
+Epoch 6/30 Completed:
+  Avg Train Loss: 0.1800
+  Avg Val Loss:   0.1795
+------------------------------
+Epoch [7/30], Batch [100/273] - Train Loss: 0.1442
+Epoch [7/30], Batch [200/273] - Train Loss: 0.2411
+--- Running Validation for Epoch 7 ---
+Epoch 7/30 Completed:
+  Avg Train Loss: 0.1725
+  Avg Val Loss:   0.1647
+------------------------------
+Epoch [8/30], Batch [100/273] - Train Loss: 0.1757
+Epoch [8/30], Batch [200/273] - Train Loss: 0.1914
+--- Running Validation for Epoch 8 ---
+Epoch 8/30 Completed:
+  Avg Train Loss: 0.1730
+  Avg Val Loss:   0.1630
+------------------------------
+Epoch [9/30], Batch [100/273] - Train Loss: 0.1892
+Epoch [9/30], Batch [200/273] - Train Loss: 0.2014
+--- Running Validation for Epoch 9 ---
+Epoch 9/30 Completed:
+  Avg Train Loss: 0.1669
+  Avg Val Loss:   0.1588
+------------------------------
+Epoch [10/30], Batch [100/273] - Train Loss: 0.1435
+Epoch [10/30], Batch [200/273] - Train Loss: 0.0756
+--- Running Validation for Epoch 10 ---
+Epoch 10/30 Completed:
+  Avg Train Loss: 0.1593
+  Avg Val Loss:   0.1721
+------------------------------
+Epoch [11/30], Batch [100/273] - Train Loss: 0.1242
+Epoch [11/30], Batch [200/273] - Train Loss: 0.1703
+--- Running Validation for Epoch 11 ---
+Epoch 11/30 Completed:
+  Avg Train Loss: 0.1498
+  Avg Val Loss:   0.1591
+------------------------------
+Epoch [12/30], Batch [100/273] - Train Loss: 0.1543
+Epoch [12/30], Batch [200/273] - Train Loss: 0.1643
+--- Running Validation for Epoch 12 ---
+Epoch 12/30 Completed:
+  Avg Train Loss: 0.1595
+  Avg Val Loss:   0.1623
+------------------------------
+Epoch [13/30], Batch [100/273] - Train Loss: 0.1585
+Epoch [13/30], Batch [200/273] - Train Loss: 0.2116
+--- Running Validation for Epoch 13 ---
+Epoch 13/30 Completed:
+  Avg Train Loss: 0.1706
+  Avg Val Loss:   0.1506
+------------------------------
+Epoch [14/30], Batch [100/273] - Train Loss: 0.2695
+Epoch [14/30], Batch [200/273] - Train Loss: 0.1148
+--- Running Validation for Epoch 14 ---
+Epoch 14/30 Completed:
+  Avg Train Loss: 0.1450
+  Avg Val Loss:   0.1404
+------------------------------
+Epoch [15/30], Batch [100/273] - Train Loss: 0.1234
+Epoch [15/30], Batch [200/273] - Train Loss: 0.0670
+--- Running Validation for Epoch 15 ---
+Epoch 15/30 Completed:
+  Avg Train Loss: 0.1356
+  Avg Val Loss:   0.1424
+------------------------------
+Epoch [16/30], Batch [100/273] - Train Loss: 0.1708
+Epoch [16/30], Batch [200/273] - Train Loss: 0.1037
+--- Running Validation for Epoch 16 ---
+Epoch 16/30 Completed:
+  Avg Train Loss: 0.1294
+  Avg Val Loss:   0.1472
+------------------------------
+Epoch [17/30], Batch [100/273] - Train Loss: 0.1335
+Epoch [17/30], Batch [200/273] - Train Loss: 0.1199
+--- Running Validation for Epoch 17 ---
+Epoch 17/30 Completed:
+  Avg Train Loss: 0.1343
+  Avg Val Loss:   0.1428
+------------------------------
+Epoch [18/30], Batch [100/273] - Train Loss: 0.0411
+Epoch [18/30], Batch [200/273] - Train Loss: 0.1570
+--- Running Validation for Epoch 18 ---
+Epoch 18/30 Completed:
+  Avg Train Loss: 0.1436
+  Avg Val Loss:   0.1643
+------------------------------
+Epoch [19/30], Batch [100/273] - Train Loss: 0.2124
+Epoch [19/30], Batch [200/273] - Train Loss: 0.1922
+--- Running Validation for Epoch 19 ---
+Epoch 19/30 Completed:
+  Avg Train Loss: 0.1419
+  Avg Val Loss:   0.1310
+------------------------------
+Epoch [20/30], Batch [100/273] - Train Loss: 0.0700
+Epoch [20/30], Batch [200/273] - Train Loss: 0.1053
+--- Running Validation for Epoch 20 ---
+Epoch 20/30 Completed:
+  Avg Train Loss: 0.1171
+  Avg Val Loss:   0.1340
+------------------------------
+Epoch [21/30], Batch [100/273] - Train Loss: 0.0400
+Epoch [21/30], Batch [200/273] - Train Loss: 0.1250
+--- Running Validation for Epoch 21 ---
+Epoch 21/30 Completed:
+  Avg Train Loss: 0.1096
+  Avg Val Loss:   0.1355
+------------------------------
+Epoch [22/30], Batch [100/273] - Train Loss: 0.1138
+Epoch [22/30], Batch [200/273] - Train Loss: 0.1413
+--- Running Validation for Epoch 22 ---
+Epoch 22/30 Completed:
+  Avg Train Loss: 0.1037
+  Avg Val Loss:   0.1425
+------------------------------
+Epoch [23/30], Batch [100/273] - Train Loss: 0.1279
+Epoch [23/30], Batch [200/273] - Train Loss: 0.1306
+--- Running Validation for Epoch 23 ---
+Epoch 23/30 Completed:
+  Avg Train Loss: 0.1025
+  Avg Val Loss:   0.1319
+------------------------------
+Epoch [24/30], Batch [100/273] - Train Loss: 0.0470
+Epoch [24/30], Batch [200/273] - Train Loss: 0.0813
+--- Running Validation for Epoch 24 ---
+Epoch 24/30 Completed:
+  Avg Train Loss: 0.1000
+  Avg Val Loss:   0.1349
+------------------------------
+Epoch [25/30], Batch [100/273] - Train Loss: 0.0743
+Epoch [25/30], Batch [200/273] - Train Loss: 0.1062
+--- Running Validation for Epoch 25 ---
+Epoch 25/30 Completed:
+  Avg Train Loss: 0.0950
+  Avg Val Loss:   0.1324
+------------------------------
+Epoch [26/30], Batch [100/273] - Train Loss: 0.0642
+Epoch [26/30], Batch [200/273] - Train Loss: 0.2149
+--- Running Validation for Epoch 26 ---
+Epoch 26/30 Completed:
+  Avg Train Loss: 0.0954
+  Avg Val Loss:   0.1385
+------------------------------
+Epoch [27/30], Batch [100/273] - Train Loss: 0.1189
+Epoch [27/30], Batch [200/273] - Train Loss: 0.0994
+--- Running Validation for Epoch 27 ---
+Epoch 27/30 Completed:
+  Avg Train Loss: 0.0931
+  Avg Val Loss:   0.1368
+------------------------------
+Epoch [28/30], Batch [100/273] - Train Loss: 0.1609
+Epoch [28/30], Batch [200/273] - Train Loss: 0.1166
+--- Running Validation for Epoch 28 ---
+Epoch 28/30 Completed:
+  Avg Train Loss: 0.1225
+  Avg Val Loss:   0.1986
+------------------------------
+Epoch [29/30], Batch [100/273] - Train Loss: 0.2511
+Epoch [29/30], Batch [200/273] - Train Loss: 0.0251
+--- Running Validation for Epoch 29 ---
+Epoch 29/30 Completed:
+  Avg Train Loss: 0.1346
+  Avg Val Loss:   0.1407
+------------------------------
+Epoch [30/30], Batch [100/273] - Train Loss: 0.0280
+Epoch [30/30], Batch [200/273] - Train Loss: 0.0829
+--- Running Validation for Epoch 30 ---
+Epoch 30/30 Completed:
+  Avg Train Loss: 0.0885
+  Avg Val Loss:   0.1485
+------------------------------
+Model saved successfully to medsegtext_text_phase.pth!
+--- Training Log End ---
