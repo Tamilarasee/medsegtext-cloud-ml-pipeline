@@ -1,0 +1,80 @@
+--- Training Log Start ---
+Starting Text Generation Training Phase...
+DEBUG: input_ids shape: torch.Size([8, 17])
+DEBUG: input_ids min value: 0
+DEBUG: input_ids max value: 30523
+DEBUG: Expected vocab size (num_embeddings): 30524
+DEBUG: target_ids min value: 0
+DEBUG: target_ids max value: 30523
+Epoch [1/10], Batch [100/273] - Train Loss: 0.5455
+Epoch [1/10], Batch [200/273] - Train Loss: 0.2936
+--- Running Validation for Epoch 1 ---
+Epoch 1/10 Completed:
+  Avg Train Loss: 1.5234
+  Avg Val Loss:   0.2584
+------------------------------
+Epoch [2/10], Batch [100/273] - Train Loss: 0.2522
+Epoch [2/10], Batch [200/273] - Train Loss: 0.2584
+--- Running Validation for Epoch 2 ---
+Epoch 2/10 Completed:
+  Avg Train Loss: 0.2422
+  Avg Val Loss:   0.2283
+------------------------------
+Epoch [3/10], Batch [100/273] - Train Loss: 0.1769
+Epoch [3/10], Batch [200/273] - Train Loss: 0.2441
+--- Running Validation for Epoch 3 ---
+Epoch 3/10 Completed:
+  Avg Train Loss: 0.2234
+  Avg Val Loss:   0.2241
+------------------------------
+Epoch [4/10], Batch [100/273] - Train Loss: 0.2140
+Epoch [4/10], Batch [200/273] - Train Loss: 0.2829
+--- Running Validation for Epoch 4 ---
+Epoch 4/10 Completed:
+  Avg Train Loss: 0.2040
+  Avg Val Loss:   0.1881
+------------------------------
+Epoch [5/10], Batch [100/273] - Train Loss: 0.2230
+Epoch [5/10], Batch [200/273] - Train Loss: 0.2143
+--- Running Validation for Epoch 5 ---
+Epoch 5/10 Completed:
+  Avg Train Loss: 0.1852
+  Avg Val Loss:   0.1810
+------------------------------
+Epoch [6/10], Batch [100/273] - Train Loss: 0.1544
+Epoch [6/10], Batch [200/273] - Train Loss: 0.1721
+--- Running Validation for Epoch 6 ---
+Epoch 6/10 Completed:
+  Avg Train Loss: 0.1819
+  Avg Val Loss:   0.1663
+------------------------------
+Epoch [7/10], Batch [100/273] - Train Loss: 0.2178
+Epoch [7/10], Batch [200/273] - Train Loss: 0.0767
+--- Running Validation for Epoch 7 ---
+Epoch 7/10 Completed:
+  Avg Train Loss: 0.1724
+  Avg Val Loss:   0.1675
+------------------------------
+Epoch [8/10], Batch [100/273] - Train Loss: 0.0992
+Epoch [8/10], Batch [200/273] - Train Loss: 0.2088
+--- Running Validation for Epoch 8 ---
+Epoch 8/10 Completed:
+  Avg Train Loss: 0.1599
+  Avg Val Loss:   0.1595
+------------------------------
+Epoch [9/10], Batch [100/273] - Train Loss: 0.0690
+Epoch [9/10], Batch [200/273] - Train Loss: 0.1181
+--- Running Validation for Epoch 9 ---
+Epoch 9/10 Completed:
+  Avg Train Loss: 0.1567
+  Avg Val Loss:   0.1538
+------------------------------
+Epoch [10/10], Batch [100/273] - Train Loss: 0.1709
+Epoch [10/10], Batch [200/273] - Train Loss: 0.1420
+--- Running Validation for Epoch 10 ---
+Epoch 10/10 Completed:
+  Avg Train Loss: 0.1654
+  Avg Val Loss:   0.1652
+------------------------------
+Model saved successfully to medsegtext_text_phase.pth!
+--- Training Log End ---

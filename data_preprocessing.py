@@ -6,6 +6,7 @@ import cv2
 from torch.utils.data import Dataset
 import numpy as np
 import torch
+from text_utils import tokenize_and_prepare_text, load_tokenizer
 
 
 def split_data(data_path):
@@ -52,14 +53,15 @@ def copy_files(text_ann, image_set, data_path, folder):
 # Resize, Augment and create Pytorch tensors for dataset
 
 class SegmentationDataset(Dataset):
-    def __init__(self, data_path, folder, transform=None, target_size=(224, 224)):
+    def __init__(self, data_path, folder, tokenizer, transform=None, target_size=(224, 224), max_text_len=50):
         self.img_folder = os.path.join(data_path, folder, "frames")
         self.mask_folder = os.path.join(data_path, folder, "masks")
-        # Add text annotations
         self.text_ann = pd.read_excel(os.path.join(data_path, folder, 'text_annotations.xlsx'))
         self.image_names = os.listdir(self.img_folder)
         self.target_size = target_size
         self.transform = transform
+        self.tokenizer = tokenizer
+        self.max_text_len = max_text_len
 
     def __len__(self):
         return len(self.image_names)
@@ -90,7 +92,6 @@ class SegmentationDataset(Dataset):
         image = image.to(torch.float32) / 255.0 # Convert image to float32 and normalize
         mask = torch.from_numpy(mask).unsqueeze(0).to(torch.float32)  # Add channel dimension and convert to long
 
-        #print(f"Mask shape after conversion: {mask.shape}, dtype: {mask.dtype}, type: {type(mask)}")
+        token_ids = tokenize_and_prepare_text(text_description, self.tokenizer, self.max_text_len)
 
-        
-        return image, mask, text_description
+        return image, mask, token_ids

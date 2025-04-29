@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F # Import F
 
 # Define Dice Loss
 class DiceLoss(nn.Module):
@@ -25,6 +26,33 @@ class CombinedLoss(nn.Module):
 
     def forward(self, preds, targets):
         return self.dice_loss(preds, targets) + self.ce_loss(preds, targets.float())
+
+# --- MOD: Add Text Generation Loss ---
+class TextCrossEntropyLoss(nn.Module):
+    """
+    Cross-Entropy Loss for text generation, ignoring padding tokens.
+    """
+    def __init__(self, pad_token_id):
+        super().__init__()
+        # Use ignore_index to skip padding tokens during loss calculation
+        self.loss_fn = nn.CrossEntropyLoss(ignore_index=pad_token_id)
+
+    def forward(self, logits, targets):
+        """
+        Args:
+            logits: Model output logits (Batch, SeqLen, VocabSize)
+            targets: Target token IDs (Batch, SeqLen)
+        """
+        # CrossEntropyLoss expects logits as (Batch, NumClasses, ...) or (N, C)
+        # and targets as (Batch, ...) or (N)
+        # Reshape logits: (B, T, V) -> (B*T, V)
+        # Reshape targets: (B, T) -> (B*T)
+        batch_size, seq_len, vocab_size = logits.shape
+        logits_flat = logits.view(batch_size * seq_len, vocab_size)
+        targets_flat = targets.view(batch_size * seq_len)
+
+        loss = self.loss_fn(logits_flat, targets_flat)
+        return loss
 
 
 
