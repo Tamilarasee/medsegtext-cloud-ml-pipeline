@@ -17,15 +17,17 @@ class DiceLoss(nn.Module):
         dice = (2. * intersection + self.smooth) / (preds.sum() + targets.sum() + self.smooth)
         return 1 - dice  # Since we want to minimize the loss
 
-# Define combined loss function (Dice + CrossEntropy)
+# Segmentation - Define combined loss function (Dice + CrossEntropy) 
 class CombinedLoss(nn.Module):
     def __init__(self):
         super(CombinedLoss, self).__init__()
         self.dice_loss = DiceLoss()
-        self.ce_loss = nn.BCEWithLogitsLoss()
+        self.bce_loss = nn.BCEWithLogitsLoss()
 
-    def forward(self, preds, targets):
-        return self.dice_loss(preds, targets) + self.ce_loss(preds, targets.float())
+    def forward(self, seg_preds_logits, seg_targets):
+        dice = self.dice_loss(seg_preds_logits, seg_targets)
+        bce = self.bce_loss(seg_preds_logits, seg_targets.float())
+        return dice + bce
 
 # --- MOD: Add Text Generation Loss ---
 class TextCrossEntropyLoss(nn.Module):
@@ -53,6 +55,43 @@ class TextCrossEntropyLoss(nn.Module):
 
         loss = self.loss_fn(logits_flat, targets_flat)
         return loss
+
+# --- MOD: Add Joint Loss --- Seg + Text
+class JointLoss(nn.Module):
+    """
+    Combines segmentation loss (e.g., CombinedLoss) and text loss
+    (TextCrossEntropyLoss) with weighting.
+    """
+    def __init__(self, pad_token_id, seg_loss_weight=1.0, text_loss_weight=1.0):
+        super().__init__()
+        self.seg_loss_fn = CombinedLoss() # Uses Dice + BCEWithLogits
+        self.text_loss_fn = TextCrossEntropyLoss(pad_token_id)
+        self.seg_weight = seg_loss_weight
+        self.text_weight = text_loss_weight
+        print(f"Initialized JointLoss with Seg Weight: {self.seg_weight}, Text Weight: {self.text_weight}")
+
+    def forward(self, seg_preds_logits, text_logits, seg_targets, text_targets):
+        """
+        Args:
+            seg_preds_logits: Raw logits from segmentation decoder head (B, 1, H, W).
+            text_logits: Raw logits from text decoder head (B, T, V).
+            seg_targets: Ground truth segmentation mask (B, 1, H, W).
+            text_targets: Ground truth text token IDs (B, T).
+        """
+        # Handle cases where one output might be None (e.g., during validation on only one task)
+        seg_loss = torch.tensor(0.0, device=seg_targets.device)
+        text_loss = torch.tensor(0.0, device=text_targets.device)
+        
+        if seg_preds_logits is not None:
+             seg_loss = self.seg_loss_fn(seg_preds_logits, seg_targets.float())
+        
+        if text_logits is not None:
+             text_loss = self.text_loss_fn(text_logits, text_targets)
+
+        combined_loss = (self.seg_weight * seg_loss) + (self.text_weight * text_loss)
+
+        # Return individual losses for logging purposes
+        return combined_loss, seg_loss, text_loss
 
 
 

@@ -4,6 +4,9 @@ from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
 import math
 import inspect
+# --- MOD: Import the new Segmentation Decoder ---
+from seg_decoder import SegmentationDecoder # DoubleConv is not needed directly here
+
 class ConvNeXtEncoder(nn.Module):
     def __init__(self):
         super().__init__()
@@ -157,29 +160,24 @@ class PositionalEncoding(nn.Module):
 
 class JointSegTextUNet(nn.Module):
     def __init__(self, seg_out_channels=1,
-                 vocab_size=120, # MOD: Placeholder vocab size (116 unique + SOS, EOS, PAD, UNK?)
-                 embed_dim=768,  # MOD: Embedding dim matching ConvNeXt F4 channels
+                 vocab_size=30524, # Use actual vocab size
+                 embed_dim=768,
                  nhead=8,
                  num_decoder_layers=6,
                  dim_feedforward=3072, # MOD: Typically 4*embed_dim
                  max_text_seq_len=50, # MOD: Max length for text sequences
                  dropout=0.1,
-                 pad_token_id=0): # MOD: Add pad_token_id argument (default=0 just in case)
+                 pad_token_id=0):
         super().__init__()
 
-        # MOD: Store pad_token_id
         self.pad_token_id = pad_token_id
-
-
-
         self.visual_encoder = ConvNeXtEncoder()
 
-        # --- MOD: Standard Input Convolution (Keep) ---
-        # Using the same features as original MMI-UNet's ConvNeXt stages
+        # --- Input Convolution ---
         self.conv_input = nn.Conv2d(3, 96, kernel_size=3, stride=1, padding=1)
         self.visual_features_channels = [96, 192, 384, 768] # Keep track of encoder channels
 
-        # --- MOD: Text Decoder Components (New) ---
+        # --- Text Decoder Components ---
         self.vocab_size = vocab_size
         self.embed_dim = embed_dim
         self.text_embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=self.pad_token_id) # MOD: Also useful to set padding_idx in Embedding
@@ -188,7 +186,7 @@ class JointSegTextUNet(nn.Module):
         # Input projection from visual features to Transformer's expected dim (if needed)
         # RATCHET uses DenseNet-121 which has 1024 features out. ConvNeXt-Tiny has 768.
         # If embed_dim is different from final visual features (768), add projection.
-        # Assuming embed_dim == 768 for now.
+       
         self.visual_feature_proj = nn.Identity() # Or nn.Linear if projection needed
         if self.visual_features_channels[-1] != embed_dim:
              self.visual_feature_proj = nn.Linear(self.visual_features_channels[-1], embed_dim)
@@ -202,95 +200,86 @@ class JointSegTextUNet(nn.Module):
             batch_first=True # MOD: Use batch_first=True for easier tensor manipulation
         )
         self.transformer_decoder = nn.TransformerDecoder(decoder_layer, num_layers=num_decoder_layers)
+        self.text_output_layer = nn.Linear(embed_dim, vocab_size)
 
-        self.text_output_layer = nn.Linear(embed_dim, vocab_size) # Map to vocab
+        # --- MOD: Segmentation Decoder Component ---
+        self.seg_decoder = SegmentationDecoder(
+            encoder_channels=self.visual_features_channels, # Pass the channel list
+            out_channels=seg_out_channels
+        )
 
     def forward(self, image, tgt_text_indices=None, mode='joint'):
         """
         Args:
             image: Input image tensor (B, C, H, W)
-            tgt_text_indices: Target text indices (shifted right) for training (B, T_tgt)
-                                Required when mode includes 'text'.
+            tgt_text_indices: Target text indices (shifted right) for training (B, T_tgt).
+                                Required when mode includes 'text' or 'joint'.
             mode: 'text', 'segmentation', or 'joint'. Controls which parts run.
-                  For now, we focus on 'text'.
         """
-
         # --- Visual Encoding ---
-        # MOD: Directly compute visual features without ITM
+
         f0 = self.conv_input(image) # (B, 96, H, W) - Assuming input is 224x224
         f1 = self.visual_encoder.stage1(f0) # (B, 96, H/4, W/4) - 56x56
         f2 = self.visual_encoder.stage2(f1) # (B, 192, H/8, W/8) - 28x28
         f3 = self.visual_encoder.stage3(f2) # (B, 384, H/16, W/16) - 14x14
         f4 = self.visual_encoder.stage4(f3) # (B, 768, H/32, W/32) - 7x7
 
+        # Store features in the order expected by seg_decoder [f1, f2, f3, f4]
+        encoder_features = [f1, f2, f3, f4]
+
         # --- Text Decoding Path ---
         text_logits = None
+        # MOD: Allow joint mode even if tgt_text_indices is None during inference maybe?
+        # Let's keep the check strict for now during training.
         if mode == 'text' or mode == 'joint':
-            if tgt_text_indices is None:
-                raise ValueError("tgt_text_indices must be provided for text generation mode")
+            if tgt_text_indices is None and (mode == 'text' or self.training): # Require text for training text/joint
+                 raise ValueError("tgt_text_indices must be provided for text/joint training mode")
+            if tgt_text_indices is not None:
+                memory = f4.flatten(2).permute(0, 2, 1)
+                memory = self.visual_feature_proj(memory)
+                tgt_embed = self.text_embedding(tgt_text_indices)
+                tgt_embed = tgt_embed.permute(1, 0, 2)
+                tgt_embed = self.positional_encoding(tgt_embed)
+                tgt_embed = tgt_embed.permute(1, 0, 2)
+                tgt_seq_len = tgt_text_indices.size(1)
+                device = tgt_text_indices.device
+                tgt_mask = nn.Transformer.generate_square_subsequent_mask(tgt_seq_len, device=device)
+                tgt_padding_mask = (tgt_text_indices == self.pad_token_id)
+                decoder_output = self.transformer_decoder(
+                    tgt=tgt_embed, memory=memory,
+                    tgt_mask=tgt_mask, tgt_key_padding_mask=tgt_padding_mask
+                )
+                text_logits = self.text_output_layer(decoder_output)
 
-            # Prepare visual features for Transformer Decoder ('memory')
-            # Input: f4 (B, C=768, H'=7, W'=7)
-            # Expected by TransformerDecoderLayer (batch_first=True): (B, S_mem, E)
-            # S_mem = H'*W', E = embed_dim
-            memory = f4.flatten(2).permute(0, 2, 1) # (B, H'*W', C=768)
-            # MOD: Project visual features if embed_dim doesn't match C
-            memory = self.visual_feature_proj(memory) # (B, 49, embed_dim=768)
-
-            # Prepare target text
-            # tgt_text_indices: (B, T_tgt) - Assumed to be padded, shifted right with SOS
-            tgt_embed = self.text_embedding(tgt_text_indices) # (B, T_tgt, embed_dim)
-            # MOD: PositionalEncoding expects (T_tgt, B, E), but our TransformerDecoderLayer is batch_first.
-            # Let's adapt PositionalEncoding or adjust tensor shapes here.
-            # Adapting PE forward call to match batch_first convention:
-            # Need to transpose for PE and back.
-            tgt_embed = tgt_embed.permute(1, 0, 2) # (T_tgt, B, embed_dim)
-            tgt_embed = self.positional_encoding(tgt_embed) # Apply PE
-            tgt_embed = tgt_embed.permute(1, 0, 2) # (B, T_tgt, embed_dim)
-
-            # Generate causal mask for target sequence
-            tgt_seq_len = tgt_text_indices.size(1)
-            # MOD: Need device placement for mask
-            device = tgt_text_indices.device
-            tgt_mask = nn.Transformer.generate_square_subsequent_mask(tgt_seq_len, device=device) # (T_tgt, T_tgt)
-
-            # Generate padding mask for target sequence
-            # MOD: Use self.pad_token_id passed during initialization
-            tgt_padding_mask = (tgt_text_indices == self.pad_token_id) # (B, T_tgt), True where padded
-
-            # Pass through Transformer Decoder
-            # Input: tgt=(B, T_tgt, E), memory=(B, S_mem, E), tgt_mask=(T_tgt, T_tgt), tgt_key_padding_mask=(B, T_tgt)
-            decoder_output = self.transformer_decoder(
-                tgt=tgt_embed,
-                memory=memory,
-                tgt_mask=tgt_mask,
-                tgt_key_padding_mask=tgt_padding_mask
-            ) # Output: (B, T_tgt, E)
-
-            # Final linear layer to get logits
-            text_logits = self.text_output_layer(decoder_output) # (B, T_tgt, vocab_size)
-
-        # --- Segmentation Decoding Path (Placeholder) ---
-        seg_output = None
+        # --- MOD: Segmentation Decoding Path ---
+        seg_output_raw = None
         if mode == 'segmentation' or mode == 'joint':
-            # MOD: This part needs to be implemented later using f1, f2, f3, f4
-            # skip_connections = [f3, f2, f1] # Example: Use direct encoder outputs
-            # x = f4 # Start decoding from the bottleneck
-            # for i, dec_layer in enumerate(self.seg_decoder):
-            #     x = dec_layer(x, skip_connections[i])
-            # x = F.interpolate(x, size=image.shape[2:], mode='bilinear', align_corners=False)
-            # seg_output = self.seg_final_conv(x)
-            # seg_output = torch.sigmoid(seg_output) # Assuming binary segmentation
-            print("WARN: Segmentation path not implemented yet.")
-            pass # Placeholder
+            # Remove the old placeholder comment/pass
+            seg_output_raw = self.seg_decoder(encoder_features) # Output is H/4 x W/4
+
+            # Upsample output to original image size
+            seg_output_raw = F.interpolate(
+                seg_output_raw,
+                size=image.shape[2:], # Original H, W
+                mode='bilinear',
+                align_corners=False
+            )
+            # We return raw logits, activation (sigmoid) is handled by loss/inference
 
         # --- Return requested outputs ---
         if mode == 'text':
+            if text_logits is None: raise RuntimeError("Text mode selected but text_logits not computed.")
             return text_logits
         elif mode == 'segmentation':
-            return seg_output # Currently None
+             if seg_output_raw is None: raise RuntimeError("Seg mode selected but seg_output_raw not computed.")
+             return seg_output_raw
         elif mode == 'joint':
-            return seg_output, text_logits # Currently (None, text_logits)
+             # Ensure both are computed or handle None if inference logic changes later
+             if seg_output_raw is None or text_logits is None:
+                 # This might happen during inference if text isn't generated but seg is needed
+                 # Or if training joint but text input is missing - needs careful handling
+                 print(f"Warning: Joint mode returning potentially None values (Seg: {seg_output_raw is not None}, Text: {text_logits is not None})")
+             return seg_output_raw, text_logits
         else:
             raise ValueError(f"Invalid mode: {mode}")
 
