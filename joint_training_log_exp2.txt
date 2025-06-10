@@ -1,0 +1,554 @@
+--- Joint Training Log Start ---
+Initialized JointLoss with Seg Weight: 1.0, Text Weight: 1.0
+Starting Joint Training Phase (Seg Weight: 1.0, Text Weight: 1.0)...
+  Epoch [1/50], Batch [100/273]
+    Avg Batch Loss (Total): 6.6929 (Seg: 1.5300, Text: 5.1629)
+  Epoch [1/50], Batch [200/273]
+    Avg Batch Loss (Total): 2.5808 (Seg: 1.4350, Text: 1.1458)
+--- Running Validation for Epoch 1 ---
+Epoch 1/50 Completed in 237.53s:
+  Train Loss: 5.2672 (Seg: 1.5036, Text: 3.7636)
+  Val Loss:   1.9050 (Seg: 1.3626, Text: 0.5423)
+  Val Dice:   0.2097, Val IoU: 0.1207
+--------------------------------------------------
+  Epoch [2/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.9982 (Seg: 1.3233, Text: 0.6749)
+  Epoch [2/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.6734 (Seg: 1.3101, Text: 0.3633)
+--- Running Validation for Epoch 2 ---
+Epoch 2/50 Completed in 239.64s:
+  Train Loss: 1.7671 (Seg: 1.3213, Text: 0.4458)
+  Val Loss:   1.7687 (Seg: 1.4410, Text: 0.3277)
+  Val Dice:   0.1516, Val IoU: 0.0836
+--------------------------------------------------
+  Epoch [3/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.5288 (Seg: 1.2283, Text: 0.3005)
+  Epoch [3/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.4962 (Seg: 1.2545, Text: 0.2417)
+--- Running Validation for Epoch 3 ---
+Epoch 3/50 Completed in 239.69s:
+  Train Loss: 1.5596 (Seg: 1.2500, Text: 0.3096)
+  Val Loss:   1.4635 (Seg: 1.2091, Text: 0.2545)
+  Val Dice:   0.5926, Val IoU: 0.4332
+--------------------------------------------------
+  Epoch [4/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.4716 (Seg: 1.2139, Text: 0.2577)
+  Epoch [4/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.4897 (Seg: 1.1643, Text: 0.3254)
+--- Running Validation for Epoch 4 ---
+Epoch 4/50 Completed in 239.66s:
+  Train Loss: 1.4571 (Seg: 1.2060, Text: 0.2511)
+  Val Loss:   1.3887 (Seg: 1.1707, Text: 0.2180)
+  Val Dice:   0.5746, Val IoU: 0.4152
+--------------------------------------------------
+  Epoch [5/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.4453 (Seg: 1.1818, Text: 0.2635)
+  Epoch [5/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.3220 (Seg: 1.1397, Text: 0.1823)
+--- Running Validation for Epoch 5 ---
+Epoch 5/50 Completed in 239.75s:
+  Train Loss: 1.3826 (Seg: 1.1686, Text: 0.2141)
+  Val Loss:   1.3693 (Seg: 1.1834, Text: 0.1859)
+  Val Dice:   0.4350, Val IoU: 0.2874
+--------------------------------------------------
+  Epoch [6/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.3323 (Seg: 1.0846, Text: 0.2477)
+  Epoch [6/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.2529 (Seg: 1.0861, Text: 0.1668)
+--- Running Validation for Epoch 6 ---
+Epoch 6/50 Completed in 239.76s:
+  Train Loss: 1.3301 (Seg: 1.1382, Text: 0.1919)
+  Val Loss:   1.2906 (Seg: 1.1141, Text: 0.1765)
+  Val Dice:   0.6761, Val IoU: 0.5255
+--------------------------------------------------
+  Epoch [7/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.3078 (Seg: 1.1670, Text: 0.1408)
+  Epoch [7/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.2404 (Seg: 1.1115, Text: 0.1290)
+--- Running Validation for Epoch 7 ---
+Epoch 7/50 Completed in 239.73s:
+  Train Loss: 1.2869 (Seg: 1.1113, Text: 0.1756)
+  Val Loss:   1.2603 (Seg: 1.0948, Text: 0.1654)
+  Val Dice:   0.6060, Val IoU: 0.4468
+--------------------------------------------------
+  Epoch [8/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.2729 (Seg: 1.1085, Text: 0.1644)
+  Epoch [8/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.2215 (Seg: 1.0545, Text: 0.1670)
+--- Running Validation for Epoch 8 ---
+Epoch 8/50 Completed in 239.77s:
+  Train Loss: 1.2521 (Seg: 1.0873, Text: 0.1648)
+  Val Loss:   1.2453 (Seg: 1.0866, Text: 0.1587)
+  Val Dice:   0.6143, Val IoU: 0.4561
+--------------------------------------------------
+  Epoch [9/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.1909 (Seg: 0.9759, Text: 0.2149)
+  Epoch [9/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.1908 (Seg: 1.0607, Text: 0.1301)
+--- Running Validation for Epoch 9 ---
+Epoch 9/50 Completed in 239.79s:
+  Train Loss: 1.2168 (Seg: 1.0622, Text: 0.1547)
+  Val Loss:   1.1942 (Seg: 1.0447, Text: 0.1495)
+  Val Dice:   0.6801, Val IoU: 0.5287
+--------------------------------------------------
+  Epoch [10/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.0716 (Seg: 0.9725, Text: 0.0991)
+  Epoch [10/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.1458 (Seg: 1.0690, Text: 0.0768)
+--- Running Validation for Epoch 10 ---
+Epoch 10/50 Completed in 239.71s:
+  Train Loss: 1.1880 (Seg: 1.0393, Text: 0.1487)
+  Val Loss:   1.1765 (Seg: 1.0295, Text: 0.1469)
+  Val Dice:   0.6985, Val IoU: 0.5486
+--------------------------------------------------
+  Epoch [11/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.2093 (Seg: 1.0918, Text: 0.1175)
+  Epoch [11/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.1454 (Seg: 1.0538, Text: 0.0917)
+--- Running Validation for Epoch 11 ---
+Epoch 11/50 Completed in 239.68s:
+  Train Loss: 1.1600 (Seg: 1.0180, Text: 0.1421)
+  Val Loss:   1.5048 (Seg: 1.3589, Text: 0.1459)
+  Val Dice:   0.1702, Val IoU: 0.0952
+--------------------------------------------------
+  Epoch [12/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.0046 (Seg: 0.8887, Text: 0.1159)
+  Epoch [12/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.1290 (Seg: 0.9904, Text: 0.1386)
+--- Running Validation for Epoch 12 ---
+Epoch 12/50 Completed in 239.72s:
+  Train Loss: 1.1307 (Seg: 0.9959, Text: 0.1348)
+  Val Loss:   1.1499 (Seg: 1.0082, Text: 0.1418)
+  Val Dice:   0.5776, Val IoU: 0.4174
+--------------------------------------------------
+  Epoch [13/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.0976 (Seg: 0.9966, Text: 0.1010)
+  Epoch [13/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.0602 (Seg: 0.9527, Text: 0.1075)
+--- Running Validation for Epoch 13 ---
+Epoch 13/50 Completed in 239.70s:
+  Train Loss: 1.1036 (Seg: 0.9746, Text: 0.1290)
+  Val Loss:   1.1055 (Seg: 0.9688, Text: 0.1367)
+  Val Dice:   0.7342, Val IoU: 0.5954
+--------------------------------------------------
+  Epoch [14/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.0687 (Seg: 0.9424, Text: 0.1263)
+  Epoch [14/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.1833 (Seg: 1.0782, Text: 0.1051)
+--- Running Validation for Epoch 14 ---
+Epoch 14/50 Completed in 239.66s:
+  Train Loss: 1.0774 (Seg: 0.9529, Text: 0.1245)
+  Val Loss:   1.1411 (Seg: 1.0019, Text: 0.1393)
+  Val Dice:   0.4756, Val IoU: 0.3213
+--------------------------------------------------
+  Epoch [15/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.9362 (Seg: 0.8187, Text: 0.1176)
+  Epoch [15/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.0991 (Seg: 0.9892, Text: 0.1099)
+--- Running Validation for Epoch 15 ---
+Epoch 15/50 Completed in 239.71s:
+  Train Loss: 1.0485 (Seg: 0.9296, Text: 0.1189)
+  Val Loss:   1.0620 (Seg: 0.9288, Text: 0.1332)
+  Val Dice:   0.7393, Val IoU: 0.5935
+--------------------------------------------------
+  Epoch [16/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.1819 (Seg: 1.0142, Text: 0.1677)
+  Epoch [16/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.0554 (Seg: 0.9818, Text: 0.0736)
+--- Running Validation for Epoch 16 ---
+Epoch 16/50 Completed in 239.63s:
+  Train Loss: 1.0276 (Seg: 0.9107, Text: 0.1170)
+  Val Loss:   1.1155 (Seg: 0.9866, Text: 0.1289)
+  Val Dice:   0.4854, Val IoU: 0.3300
+--------------------------------------------------
+  Epoch [17/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.9963 (Seg: 0.8958, Text: 0.1005)
+  Epoch [17/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.0388 (Seg: 0.9027, Text: 0.1361)
+--- Running Validation for Epoch 17 ---
+Epoch 17/50 Completed in 239.69s:
+  Train Loss: 0.9990 (Seg: 0.8872, Text: 0.1118)
+  Val Loss:   1.0462 (Seg: 0.9179, Text: 0.1283)
+  Val Dice:   0.6428, Val IoU: 0.4819
+--------------------------------------------------
+  Epoch [18/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.9162 (Seg: 0.7907, Text: 0.1255)
+  Epoch [18/50], Batch [200/273]
+    Avg Batch Loss (Total): 1.0593 (Seg: 0.9811, Text: 0.0783)
+--- Running Validation for Epoch 18 ---
+Epoch 18/50 Completed in 239.67s:
+  Train Loss: 0.9708 (Seg: 0.8645, Text: 0.1063)
+  Val Loss:   0.9836 (Seg: 0.8554, Text: 0.1282)
+  Val Dice:   0.7317, Val IoU: 0.5840
+--------------------------------------------------
+  Epoch [19/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.9735 (Seg: 0.8834, Text: 0.0901)
+  Epoch [19/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.9229 (Seg: 0.8520, Text: 0.0709)
+--- Running Validation for Epoch 19 ---
+Epoch 19/50 Completed in 239.70s:
+  Train Loss: 0.9442 (Seg: 0.8426, Text: 0.1016)
+  Val Loss:   0.9682 (Seg: 0.8389, Text: 0.1292)
+  Val Dice:   0.7158, Val IoU: 0.5691
+--------------------------------------------------
+  Epoch [20/50], Batch [100/273]
+    Avg Batch Loss (Total): 1.0891 (Seg: 0.9679, Text: 0.1212)
+  Epoch [20/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.9492 (Seg: 0.8446, Text: 0.1046)
+--- Running Validation for Epoch 20 ---
+Epoch 20/50 Completed in 239.73s:
+  Train Loss: 0.9170 (Seg: 0.8191, Text: 0.0979)
+  Val Loss:   0.9532 (Seg: 0.8285, Text: 0.1247)
+  Val Dice:   0.7061, Val IoU: 0.5553
+--------------------------------------------------
+  Epoch [21/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.9763 (Seg: 0.8113, Text: 0.1650)
+  Epoch [21/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.8407 (Seg: 0.7260, Text: 0.1147)
+--- Running Validation for Epoch 21 ---
+Epoch 21/50 Completed in 239.76s:
+  Train Loss: 0.8881 (Seg: 0.7933, Text: 0.0948)
+  Val Loss:   0.9554 (Seg: 0.8219, Text: 0.1334)
+  Val Dice:   0.6598, Val IoU: 0.5030
+--------------------------------------------------
+  Epoch [22/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.7277 (Seg: 0.6357, Text: 0.0921)
+  Epoch [22/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.7479 (Seg: 0.6732, Text: 0.0747)
+--- Running Validation for Epoch 22 ---
+Epoch 22/50 Completed in 239.74s:
+  Train Loss: 0.8645 (Seg: 0.7715, Text: 0.0929)
+  Val Loss:   0.8966 (Seg: 0.7723, Text: 0.1243)
+  Val Dice:   0.7860, Val IoU: 0.6589
+--------------------------------------------------
+  Epoch [23/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.7276 (Seg: 0.6323, Text: 0.0953)
+  Epoch [23/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.8346 (Seg: 0.7636, Text: 0.0709)
+--- Running Validation for Epoch 23 ---
+Epoch 23/50 Completed in 239.67s:
+  Train Loss: 0.8323 (Seg: 0.7436, Text: 0.0887)
+  Val Loss:   0.8871 (Seg: 0.7547, Text: 0.1324)
+  Val Dice:   0.7541, Val IoU: 0.6145
+--------------------------------------------------
+  Epoch [24/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.8699 (Seg: 0.7622, Text: 0.1077)
+  Epoch [24/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.7530 (Seg: 0.6726, Text: 0.0804)
+--- Running Validation for Epoch 24 ---
+Epoch 24/50 Completed in 239.65s:
+  Train Loss: 0.8100 (Seg: 0.7220, Text: 0.0879)
+  Val Loss:   0.8470 (Seg: 0.7254, Text: 0.1216)
+  Val Dice:   0.7692, Val IoU: 0.6437
+--------------------------------------------------
+  Epoch [25/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.8689 (Seg: 0.8120, Text: 0.0570)
+  Epoch [25/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.6766 (Seg: 0.5400, Text: 0.1365)
+--- Running Validation for Epoch 25 ---
+Epoch 25/50 Completed in 239.68s:
+  Train Loss: 0.7733 (Seg: 0.6921, Text: 0.0813)
+  Val Loss:   0.8271 (Seg: 0.6965, Text: 0.1306)
+  Val Dice:   0.7905, Val IoU: 0.6656
+--------------------------------------------------
+  Epoch [26/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.8225 (Seg: 0.7311, Text: 0.0914)
+  Epoch [26/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.6095 (Seg: 0.5487, Text: 0.0609)
+--- Running Validation for Epoch 26 ---
+Epoch 26/50 Completed in 239.72s:
+  Train Loss: 0.7433 (Seg: 0.6660, Text: 0.0773)
+  Val Loss:   0.7953 (Seg: 0.6700, Text: 0.1253)
+  Val Dice:   0.7811, Val IoU: 0.6489
+--------------------------------------------------
+  Epoch [27/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.7092 (Seg: 0.6641, Text: 0.0451)
+  Epoch [27/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.7275 (Seg: 0.6824, Text: 0.0451)
+--- Running Validation for Epoch 27 ---
+Epoch 27/50 Completed in 239.65s:
+  Train Loss: 0.7148 (Seg: 0.6413, Text: 0.0735)
+  Val Loss:   0.7857 (Seg: 0.6562, Text: 0.1296)
+  Val Dice:   0.7963, Val IoU: 0.6716
+--------------------------------------------------
+  Epoch [28/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.4461 (Seg: 0.4105, Text: 0.0357)
+  Epoch [28/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.6159 (Seg: 0.5312, Text: 0.0847)
+--- Running Validation for Epoch 28 ---
+Epoch 28/50 Completed in 239.58s:
+  Train Loss: 0.6855 (Seg: 0.6124, Text: 0.0731)
+  Val Loss:   0.7662 (Seg: 0.6325, Text: 0.1337)
+  Val Dice:   0.7886, Val IoU: 0.6604
+--------------------------------------------------
+  Epoch [29/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.6516 (Seg: 0.5540, Text: 0.0977)
+  Epoch [29/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.5986 (Seg: 0.5634, Text: 0.0353)
+--- Running Validation for Epoch 29 ---
+Epoch 29/50 Completed in 239.67s:
+  Train Loss: 0.6572 (Seg: 0.5873, Text: 0.0699)
+  Val Loss:   0.7266 (Seg: 0.5960, Text: 0.1306)
+  Val Dice:   0.7906, Val IoU: 0.6622
+--------------------------------------------------
+  Epoch [30/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.7678 (Seg: 0.6334, Text: 0.1344)
+  Epoch [30/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.7250 (Seg: 0.6158, Text: 0.1092)
+--- Running Validation for Epoch 30 ---
+Epoch 30/50 Completed in 239.71s:
+  Train Loss: 0.6290 (Seg: 0.5623, Text: 0.0668)
+  Val Loss:   0.7221 (Seg: 0.5858, Text: 0.1363)
+  Val Dice:   0.7562, Val IoU: 0.6189
+--------------------------------------------------
+  Epoch [31/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.7599 (Seg: 0.6948, Text: 0.0651)
+  Epoch [31/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.5252 (Seg: 0.4080, Text: 0.1172)
+--- Running Validation for Epoch 31 ---
+Epoch 31/50 Completed in 239.58s:
+  Train Loss: 0.6024 (Seg: 0.5374, Text: 0.0650)
+  Val Loss:   0.7086 (Seg: 0.5666, Text: 0.1420)
+  Val Dice:   0.8043, Val IoU: 0.6802
+--------------------------------------------------
+  Epoch [32/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.7008 (Seg: 0.6265, Text: 0.0743)
+  Epoch [32/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.5356 (Seg: 0.4832, Text: 0.0524)
+--- Running Validation for Epoch 32 ---
+Epoch 32/50 Completed in 239.62s:
+  Train Loss: 0.5757 (Seg: 0.5133, Text: 0.0624)
+  Val Loss:   0.6657 (Seg: 0.5297, Text: 0.1360)
+  Val Dice:   0.8066, Val IoU: 0.6835
+--------------------------------------------------
+  Epoch [33/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.7014 (Seg: 0.6705, Text: 0.0309)
+  Epoch [33/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.6079 (Seg: 0.5625, Text: 0.0454)
+--- Running Validation for Epoch 33 ---
+Epoch 33/50 Completed in 239.68s:
+  Train Loss: 0.5471 (Seg: 0.4881, Text: 0.0590)
+  Val Loss:   0.6438 (Seg: 0.5071, Text: 0.1367)
+  Val Dice:   0.8066, Val IoU: 0.6832
+--------------------------------------------------
+  Epoch [34/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.4200 (Seg: 0.3753, Text: 0.0447)
+  Epoch [34/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.6987 (Seg: 0.6106, Text: 0.0881)
+--- Running Validation for Epoch 34 ---
+Epoch 34/50 Completed in 239.58s:
+  Train Loss: 0.5220 (Seg: 0.4622, Text: 0.0598)
+  Val Loss:   0.6364 (Seg: 0.5015, Text: 0.1348)
+  Val Dice:   0.7890, Val IoU: 0.6700
+--------------------------------------------------
+  Epoch [35/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.3783 (Seg: 0.3281, Text: 0.0502)
+  Epoch [35/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.5778 (Seg: 0.4927, Text: 0.0852)
+--- Running Validation for Epoch 35 ---
+Epoch 35/50 Completed in 239.63s:
+  Train Loss: 0.4965 (Seg: 0.4416, Text: 0.0549)
+  Val Loss:   0.6280 (Seg: 0.4847, Text: 0.1433)
+  Val Dice:   0.8047, Val IoU: 0.6823
+--------------------------------------------------
+  Epoch [36/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.4150 (Seg: 0.3269, Text: 0.0881)
+  Epoch [36/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.3681 (Seg: 0.3586, Text: 0.0096)
+--- Running Validation for Epoch 36 ---
+Epoch 36/50 Completed in 239.63s:
+  Train Loss: 0.4742 (Seg: 0.4179, Text: 0.0563)
+  Val Loss:   0.6326 (Seg: 0.4981, Text: 0.1345)
+  Val Dice:   0.7547, Val IoU: 0.6198
+--------------------------------------------------
+  Epoch [37/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.3006 (Seg: 0.2418, Text: 0.0589)
+  Epoch [37/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.3657 (Seg: 0.3258, Text: 0.0399)
+--- Running Validation for Epoch 37 ---
+Epoch 37/50 Completed in 239.57s:
+  Train Loss: 0.4498 (Seg: 0.3978, Text: 0.0520)
+  Val Loss:   0.5840 (Seg: 0.4435, Text: 0.1405)
+  Val Dice:   0.8090, Val IoU: 0.6891
+--------------------------------------------------
+  Epoch [38/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.3601 (Seg: 0.3333, Text: 0.0267)
+  Epoch [38/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.4920 (Seg: 0.4594, Text: 0.0326)
+--- Running Validation for Epoch 38 ---
+Epoch 38/50 Completed in 239.64s:
+  Train Loss: 0.4244 (Seg: 0.3758, Text: 0.0486)
+  Val Loss:   0.6274 (Seg: 0.4794, Text: 0.1480)
+  Val Dice:   0.7421, Val IoU: 0.6106
+--------------------------------------------------
+  Epoch [39/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.5413 (Seg: 0.4696, Text: 0.0717)
+  Epoch [39/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.4935 (Seg: 0.4493, Text: 0.0442)
+--- Running Validation for Epoch 39 ---
+Epoch 39/50 Completed in 239.63s:
+  Train Loss: 0.4076 (Seg: 0.3599, Text: 0.0477)
+  Val Loss:   0.5686 (Seg: 0.4156, Text: 0.1531)
+  Val Dice:   0.8032, Val IoU: 0.6794
+--------------------------------------------------
+  Epoch [40/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.2828 (Seg: 0.2539, Text: 0.0289)
+  Epoch [40/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.3434 (Seg: 0.2576, Text: 0.0858)
+--- Running Validation for Epoch 40 ---
+Epoch 40/50 Completed in 239.50s:
+  Train Loss: 0.3875 (Seg: 0.3410, Text: 0.0464)
+  Val Loss:   0.5735 (Seg: 0.4111, Text: 0.1624)
+  Val Dice:   0.8083, Val IoU: 0.6893
+--------------------------------------------------
+  Epoch [41/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.2984 (Seg: 0.2165, Text: 0.0820)
+  Epoch [41/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.2809 (Seg: 0.2432, Text: 0.0377)
+--- Running Validation for Epoch 41 ---
+Epoch 41/50 Completed in 239.51s:
+  Train Loss: 0.3691 (Seg: 0.3250, Text: 0.0440)
+  Val Loss:   0.5400 (Seg: 0.3876, Text: 0.1523)
+  Val Dice:   0.7957, Val IoU: 0.6689
+--------------------------------------------------
+  Epoch [42/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.3210 (Seg: 0.2775, Text: 0.0435)
+  Epoch [42/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.2580 (Seg: 0.2341, Text: 0.0240)
+--- Running Validation for Epoch 42 ---
+Epoch 42/50 Completed in 239.51s:
+  Train Loss: 0.3523 (Seg: 0.3096, Text: 0.0427)
+  Val Loss:   0.5060 (Seg: 0.3602, Text: 0.1457)
+  Val Dice:   0.8141, Val IoU: 0.6951
+--------------------------------------------------
+  Epoch [43/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.3299 (Seg: 0.2922, Text: 0.0378)
+  Epoch [43/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.2590 (Seg: 0.2279, Text: 0.0312)
+--- Running Validation for Epoch 43 ---
+Epoch 43/50 Completed in 239.54s:
+  Train Loss: 0.3305 (Seg: 0.2902, Text: 0.0404)
+  Val Loss:   0.5426 (Seg: 0.3760, Text: 0.1666)
+  Val Dice:   0.8036, Val IoU: 0.6821
+--------------------------------------------------
+  Epoch [44/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.2947 (Seg: 0.2685, Text: 0.0262)
+  Epoch [44/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.3925 (Seg: 0.3372, Text: 0.0553)
+--- Running Validation for Epoch 44 ---
+Epoch 44/50 Completed in 239.55s:
+  Train Loss: 0.3164 (Seg: 0.2771, Text: 0.0393)
+  Val Loss:   0.5181 (Seg: 0.3606, Text: 0.1575)
+  Val Dice:   0.8074, Val IoU: 0.6870
+--------------------------------------------------
+  Epoch [45/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.2143 (Seg: 0.1883, Text: 0.0260)
+  Epoch [45/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.3037 (Seg: 0.2630, Text: 0.0406)
+--- Running Validation for Epoch 45 ---
+Epoch 45/50 Completed in 239.54s:
+  Train Loss: 0.3047 (Seg: 0.2642, Text: 0.0405)
+  Val Loss:   0.4987 (Seg: 0.3286, Text: 0.1701)
+  Val Dice:   0.8149, Val IoU: 0.6952
+--------------------------------------------------
+  Epoch [46/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.2293 (Seg: 0.2195, Text: 0.0098)
+  Epoch [46/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.2178 (Seg: 0.1815, Text: 0.0364)
+--- Running Validation for Epoch 46 ---
+Epoch 46/50 Completed in 239.56s:
+  Train Loss: 0.2841 (Seg: 0.2484, Text: 0.0356)
+  Val Loss:   0.4998 (Seg: 0.3341, Text: 0.1657)
+  Val Dice:   0.8066, Val IoU: 0.6824
+--------------------------------------------------
+  Epoch [47/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.3367 (Seg: 0.2799, Text: 0.0568)
+  Epoch [47/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.1629 (Seg: 0.1467, Text: 0.0162)
+--- Running Validation for Epoch 47 ---
+Epoch 47/50 Completed in 239.57s:
+  Train Loss: 0.2801 (Seg: 0.2443, Text: 0.0358)
+  Val Loss:   0.4916 (Seg: 0.3201, Text: 0.1715)
+  Val Dice:   0.8147, Val IoU: 0.6975
+--------------------------------------------------
+  Epoch [48/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.2463 (Seg: 0.2305, Text: 0.0159)
+  Epoch [48/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.2362 (Seg: 0.1857, Text: 0.0506)
+--- Running Validation for Epoch 48 ---
+Epoch 48/50 Completed in 239.48s:
+  Train Loss: 0.2652 (Seg: 0.2320, Text: 0.0332)
+  Val Loss:   0.4963 (Seg: 0.3224, Text: 0.1739)
+  Val Dice:   0.8061, Val IoU: 0.6873
+--------------------------------------------------
+  Epoch [49/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.1806 (Seg: 0.1711, Text: 0.0095)
+  Epoch [49/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.1461 (Seg: 0.1341, Text: 0.0120)
+--- Running Validation for Epoch 49 ---
+Epoch 49/50 Completed in 239.54s:
+  Train Loss: 0.2486 (Seg: 0.2185, Text: 0.0301)
+  Val Loss:   0.4982 (Seg: 0.3127, Text: 0.1855)
+  Val Dice:   0.8067, Val IoU: 0.6850
+--------------------------------------------------
+  Epoch [50/50], Batch [100/273]
+    Avg Batch Loss (Total): 0.2565 (Seg: 0.2353, Text: 0.0213)
+  Epoch [50/50], Batch [200/273]
+    Avg Batch Loss (Total): 0.2140 (Seg: 0.1867, Text: 0.0273)
+--- Running Validation for Epoch 50 ---
+Epoch 50/50 Completed in 239.49s:
+  Train Loss: 0.2482 (Seg: 0.2173, Text: 0.0309)
+  Val Loss:   0.4677 (Seg: 0.2920, Text: 0.1757)
+  Val Dice:   0.8144, Val IoU: 0.6987
+--------------------------------------------------
+Model saved successfully to medsegtext_joint_trained_exp2.pth!
+--- Joint Training Log End ---
+
+
+--- Evaluation Log Start ---
+--- Starting Evaluation (Joint Model) ---
+Initializing model for inference...
+Model weights loaded successfully from medsegtext_joint_trained_exp2.pth
+Downloading wordnet...
+Evaluating on 273 test samples...
+
+--- Displaying Sample 1 ---
+Ground Truth Text: unilateral pulmonary infection, one infected areas, middle left lung.
+Predicted Text:    unilateral pulmonary infection, one infected areas, middle left lung.
+
+--- Displaying Sample 2 ---
+Ground Truth Text: bilateral pulmonary infection, three infected areas, middle left lung and middle right lung.
+Predicted Text:    unilateral pulmonary infection, one infected areas, middle left lung.
+
+--- Displaying Sample 3 ---
+Ground Truth Text: bilateral pulmonary infection, three infected areas, middle left lung and middle right lung.
+Predicted Text:    bilateral pulmonary infection, two infected areas, middle left lung and middle right lung.
+
+--- Displaying Sample 4 ---
+Ground Truth Text: bilateral pulmonary infection, three infected areas, middle left lung and middle right lung.
+Predicted Text:    bilateral pulmonary infection, seven infected areas, middle left lung and middle right lung.
+
+--- Displaying Sample 5 ---
+Ground Truth Text: bilateral pulmonary infection, three infected areas, upper left lung and upper right lung.
+Predicted Text:    bilateral pulmonary infection, two infected areas, middle left lung and upper right lung.
+  Processed 88/273 samples...
+  Processed 168/273 samples...
+  Processed 248/273 samples...
+
+Finished loop (273 samples) in 38.94s.
+
+Calculating Text Metrics (Based on 273 Valid Samples)...
+
+Calculating Segmentation Metrics (Based on 273 Samples)...
+
+--- Overall Evaluation Metrics ---
+  BLEU-1: 0.9347
+  BLEU-2: 0.9097
+  BLEU-3: 0.8803
+  BLEU-4: 0.8449
+  METEOR: 0.9405
+  ROUGE-L: 0.9292
+  Avg Dice: 0.7279
+  Avg IoU: 0.6147
+--- Evaluation Finished ---
+--- Evaluation Log End ---
