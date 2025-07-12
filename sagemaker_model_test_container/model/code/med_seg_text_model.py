@@ -8,12 +8,17 @@ import inspect
 from seg_decoder import SegmentationDecoder # DoubleConv is not needed directly here
 
 class ConvNeXtEncoder(nn.Module):
-    def __init__(self):
+    #def __init__(self):
+    def __init__(self, convnext_model_path):
         super().__init__()
 
+        # Update - Removed the Hugging Face URL and replaced it with the local path to reduce dependency on internet connection and download time for deployment
         # Load pretrained ConvNeXt-Tiny from Hugging Face
-        url = "facebook/convnext-tiny-224"
-        self.convnext = AutoModel.from_pretrained(url, trust_remote_code=True)
+        # url = "facebook/convnext-tiny-224"
+        # self.convnext = AutoModel.from_pretrained(url, trust_remote_code=True)
+
+        # Load pretrained ConvNeXt-Tiny from the provided local path
+        self.convnext = AutoModel.from_pretrained(convnext_model_path, trust_remote_code=True)
 
         # ConvNeXt stages to extract feature maps
         self.stage1 = self.convnext.encoder.stages[0]  # Produces F1 (H/4 x W/4 x 96)
@@ -167,11 +172,17 @@ class JointSegTextUNet(nn.Module):
                  dim_feedforward=3072, # MOD: Typically 4*embed_dim
                  max_text_seq_len=50, # MOD: Max length for text sequences
                  dropout=0.1,
-                 pad_token_id=0):
+                 pad_token_id=0,
+                 convnext_model_path=None): # Adding this arguement to pass local path to ConvNeXt model
         super().__init__()
 
+        if convnext_model_path is None:
+            raise ValueError("A path to the ConvNeXt model must be provided.")
+
         self.pad_token_id = pad_token_id
-        self.visual_encoder = ConvNeXtEncoder()
+        #self.visual_encoder = ConvNeXtEncoder()
+        # Pass the local path to the visual encoder
+        self.visual_encoder = ConvNeXtEncoder(convnext_model_path=convnext_model_path)
 
         # --- Input Convolution ---
         self.conv_input = nn.Conv2d(3, 96, kernel_size=3, stride=1, padding=1)
@@ -247,7 +258,8 @@ class JointSegTextUNet(nn.Module):
                 tgt_padding_mask = (tgt_text_indices == self.pad_token_id)
                 decoder_output = self.transformer_decoder(
                     tgt=tgt_embed, memory=memory,
-                    tgt_mask=tgt_mask, tgt_key_padding_mask=tgt_padding_mask
+                    tgt_mask=tgt_mask,  # This mask helps it learn autoregressive behavior
+                    tgt_key_padding_mask=tgt_padding_mask
                 )
                 text_logits = self.text_output_layer(decoder_output)
 
