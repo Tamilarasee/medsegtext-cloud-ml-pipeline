@@ -11,7 +11,7 @@ MedSegText is a fully cloud-native machine learning pipeline for automated lesio
 - **UI:** Streamlit web app containerized and deployed on **AWS ECS Fargate**
 - **Data:** Sample test images included; full dataset source provided via Google Drive (see below)
 
-> **For detailed model architecture, training methodology, and results, see [medsegtext_final_paper.pdf](medsegtext_final_paper.pdf).**
+> **For detailed model architecture, training methodology, and results, see [medsegtext_final_paper.pdf](https://github.com/Tamilarasee/MMI_Unet_Lesion_Segmentation/blob/MedSegText/MedSegText_Final_Paper.pdf).**
 
 ---
 
@@ -70,7 +70,7 @@ Each of the main folders (**sagemaker_model_test_container**, **api**, **ui**) c
 ---
 
 ## **References & Further Information**
-- [medsegtext_final_paper.pdf](medsegtext_final_paper.pdf) — Full technical report
+- [medsegtext_final_paper.pdf](https://github.com/Tamilarasee/MMI_Unet_Lesion_Segmentation/blob/MedSegText/MedSegText_Final_Paper.pdf) — Full technical report
 - [MedSegText Architecture Diagram](arch diagrams/MedSegText.pdf) 
 ---
 
