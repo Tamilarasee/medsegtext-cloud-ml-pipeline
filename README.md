@@ -36,7 +36,7 @@ All major components are organized in separate folders, each with its own README
 > This setup alone is enough to try out the core model functionality locally, without needing to deploy the API or UI.
 
 - **API (FastAPI + Lambda):**  
-  See [`api/README_api_deployment.md`](api/README_api_deployment.md)  
+  See [`api/package/README_api_package.md`](api/package/README_api_package.md)  
   *Instructions for packaging, deploying, and configuring the backend API.*
 
 - **UI (Streamlit):**  
@@ -49,7 +49,7 @@ All major components are organized in separate folders, each with its own README
 - **Training:**  
   Use the files in the `MedsegText Training files/` folder and run `main_med_seg_text_exp2.ipynb` for full training pipeline.
 
-- **Complete Data:**   -download from [Google Drive](https://drive.google.com/file/d/16wlFbUgWVwuTq4LFdoWw2uhIqxW6UW9M/view)
+- **Complete Data:**   Download from [Google Drive](https://drive.google.com/file/d/16wlFbUgWVwuTq4LFdoWw2uhIqxW6UW9M/view)
 
 ---
 

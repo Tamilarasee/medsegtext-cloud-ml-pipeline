@@ -1,7 +1,7 @@
 # API Deployment Package
 
 **Before you begin:**  
-Create an **S3 bucket** (for input/output images) and a **DynamoDB table** (for metadata) in your AWS account before proceeding with the API deployment.
+Create an **S3 bucket** (for input/output images) and a **DynamoDB table** (for metadata) and the model endpoint name (**Sagemaker**) in your AWS account before proceeding with the API deployment.
 
 
 This package folder must contain all packages needed to run the FASTAPI app, built to be compatible with AWS Lambda (Python 3.9 is used in this project).
@@ -22,11 +22,14 @@ This package folder must contain all packages needed to run the FASTAPI app, bui
     zip -r ../package.zip .
     ```
 4. Upload package.zip to AWS Lambda
-5. For local testing with docker, update .env file with below
-    AWS_ACCESS_KEY_ID=
-    AWS_SECRET_ACCESS_KEY=
-    AWS_DEFAULT_REGION=us-east-1
+5. For local testing with docker, update your `.env` file with the following:
 
-    SAGEMAKER_ENDPOINT=medsegtext-inference
-    S3_BUCKET=medsegtext-input-output-images
-    DYNAMO_TABLE=Scan-Results
+```env
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=us-east-1
+
+SAGEMAKER_ENDPOINT=medsegtext-inference
+S3_BUCKET=medsegtext-input-output-images
+DYNAMO_TABLE=Scan-Results
+```
