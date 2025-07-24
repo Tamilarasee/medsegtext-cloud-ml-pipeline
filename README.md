@@ -2,7 +2,9 @@
 
 MedSegText is a fully cloud-native machine learning pipeline for automated image segmentation and clinical report findings generation from CT scan images. The system is designed for scalable, secure, and reproducible deployment on AWS. It can also be run entirely locally for research and testing.
 
-## 🎥 [Demo Video](https://drive.google.com/file/d/1IVxGnhWPBihEimFN7vuS-nTNQMF_idOr/view?usp=sharing)
+## Demo Video
+
+👉 [**Click here to watch the demo video**](https://drive.google.com/file/d/1IVxGnhWPBihEimFN7vuS-nTNQMF_idOr/view?usp=sharing)
 
 ---
 
