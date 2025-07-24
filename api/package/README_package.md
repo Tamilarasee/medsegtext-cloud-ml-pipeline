@@ -1,4 +1,10 @@
-This package folder must contain all packages needed to run the FASTAPI app, built to be compatible with AWS Lambda (Python 3.9).
+# API Deployment Package
+
+**Before you begin:**  
+Create an **S3 bucket** (for input/output images) and a **DynamoDB table** (for metadata) in your AWS account before proceeding with the API deployment.
+
+
+This package folder must contain all packages needed to run the FASTAPI app, built to be compatible with AWS Lambda (Python 3.9 is used in this project).
 
 **How to prepare this package folder:**
 

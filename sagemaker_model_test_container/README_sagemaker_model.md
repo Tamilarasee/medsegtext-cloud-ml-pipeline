@@ -1,3 +1,6 @@
+## Folder Structure
+
+```text
 sagemaker_model_test_container  
     ├── model    
         ├── medsegtext_joint_trained_exp2.pth
@@ -13,8 +16,7 @@ sagemaker_model_test_container
     ├── test_image.png                # Example test image for reproducibility
     ├── test_inference.py             # Script to test the model locally in Docker
     ├── test_aws_endpoint.py          # Script to test deployed Sagemaker endpoint  (can also test with Postman)
-
----
+```
 
 ## 1. Download Model Weights
 - Get `medsegtext_joint_trained_exp2.pth` from:  
@@ -62,3 +64,4 @@ sagemaker_model_test_container
 
 ## Important for Reproducibility
 - `medsegtext_joint_trained_exp2.pth` (model weights) **must** be downloaded separately.
+
